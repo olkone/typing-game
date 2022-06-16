@@ -29,8 +29,6 @@ def random_phrase(seed, phrase_list):
 def ready_up(player_name):
 
     game_on = False
-    typing = True
-    round_num = 0
     ready = ''
 
     while ready != 'yes' or ready != 'no':
@@ -48,7 +46,15 @@ def ready_up(player_name):
         else:
             print(f'Invalid input. Try again.\n{dash}')
 
-def type_on(player_name, round_num, match_phrase, player_input, start_time):
+def type_on(player_name, round_num, phrase_list, seed):
+
+    seed += 1
+    print(f"{double}\nROUND {round_num}\n{double}")
+
+    start_time = time.perf_counter()
+    player_input = input(f"{random_phrase(seed, phrase_list)}\n{dash}\n")
+    match_phrase = random_phrase(seed, phrase_list)
+
     word_count = len(match_phrase.split(' '))
     score_list = []
     prev_round = 1 - round_num
@@ -58,9 +64,10 @@ def type_on(player_name, round_num, match_phrase, player_input, start_time):
         delta_time = end_time - start_time
         wpm = word_count/(delta_time/60)
         score_list.append(wpm)
-        print(f"{dash}\nCorrect!\nYour time: {(round(delta_time,3))} seconds")
-        print(f"Words per minute: {round(wpm,3)}")
-        print(dash)
+
+        print(f"{dash}\nCorrect!\nYour time: {(round(delta_time,3))} seconds\nWords per minute: {round(wpm,3)}\n{dash}")
+
+        round_num += 1
 
         if round_num > 1:
             pass
@@ -73,4 +80,4 @@ def type_on(player_name, round_num, match_phrase, player_input, start_time):
 
     else:
         print("Incorrect input. Try again!")
-        return player_name, (round_num - 1), match_phrase, player_input, start_time, player_input
+        type_on(player_name, round_num, phrase_list, seed=seed-1)
