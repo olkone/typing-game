@@ -46,11 +46,10 @@ def ready_up(player_name):
         else:
             print(f'Invalid input. Try again.\n{dash}')
 
-def type_on(player_name, round_num, phrase_list, seed):
+def type_on(player_name, round_num, phrase_list, seed, start_time):
 
     seed += 1
 
-    start_time = time.perf_counter()
     player_input = input(f"{random_phrase(seed, phrase_list)}\n{dash}\n")
     match_phrase = random_phrase(seed, phrase_list)
 
@@ -77,4 +76,4 @@ def type_on(player_name, round_num, phrase_list, seed):
 
     else:
         print(f"{dash}\nIncorrect input. Try again!\n{dash}")
-        type_on(player_name, round_num, phrase_list, seed=seed-1)
+        type_on(player_name, round_num, phrase_list, seed-1, start_time)

@@ -19,6 +19,7 @@ round_num = 0
 while ready_up(player_name):
     seed = random.randint(1, (2**99))
     round_num += 1
+    start_time = time.perf_counter()
     print(f"{double}\nROUND {round_num}\n{double}")
-    
-    type_on(player_name, round_num, phrase_list, seed)
+
+    type_on(player_name, round_num, phrase_list, seed, start_time)
