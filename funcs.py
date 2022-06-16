@@ -1,35 +1,32 @@
-import time, random, bs4, requests, sys
+import bs4, lxml, random, requests, sys, time
 
-class Phrases():
-    
-    def __init__(self, seed=42):
-        self.seed = seed
-        self.phrases = []
+dash = "-"*70
+double = "="*70
 
-    def add_phrases(self):
-    
-        url = "https://quotes.toscrape.com/page/{}/"
+def add_phrases():
 
-        # There are 10 pages of quotes
-        # Loop through each page, scrape html text attributes
-        for page in range(1,11):
-            scrape_url = url.format(page)
-            result = requests.get(scrape_url)
-            soup = bs4.BeautifulSoup(result.text, 'lxml')
+    phrase_list = []
+    url = "http://quotes.toscrape.com/page/{}/"
 
-            # In each page, loop through each text element to scrape quote,
-            # then add quotes to phrase_list
-            for quote in soup.find_all(attrs=('text')):
-                self.phrases.append(quote.text)
-    
-    def random_phrase(self):
-        random.seed(self.seed)
-        return random.choice(self.phrases)[1:-1]
+    # There are 10 pages of quotes
+    # Loop through each page, scrape html text attributes
+    for page in range(1,11):
+        scrape_url = url.format(page)
+        result = requests.get(scrape_url)
+        soup = bs4.BeautifulSoup(result.text, "lxml")
 
-def ready_up():
+        # In each page, loop through each text element to scrape quote,
+        # then add quotes to phrase_list
+        for quote in soup.find_all(attrs=('text')):
+            phrase_list.append(quote.text)
 
-    player_name = input("What is your name? ")
-    print(f'PLAYER: {player_name}\n' + '-'*30)
+    return phrase_list
+        
+def random_phrase(seed, phrase_list):
+    random.seed(seed)
+    return random.choice(phrase_list)[1:-1]
+
+def ready_up(player_name):
 
     game_on = False
     typing = True
@@ -41,7 +38,7 @@ def ready_up():
 
         if ready == 'no' or ready == 'n':
             game_on = False
-            print("Thank you for playing. Goodbye.")
+            print(f"Thank you for playing. Goodbye.\n{double}")
             sys.exit()
         
         elif ready == 'yes' or ready == 'y':
@@ -49,4 +46,4 @@ def ready_up():
             return game_on
         
         else:
-            print('Invalid input. Try again.\n' + '-'*30)
+            print(f'Invalid input. Try again.\n{dash}')
