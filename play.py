@@ -23,3 +23,4 @@ while ready_up(player_name):
     print(f"{double}\nROUND {round_num}\n{double}")
 
     type_on(player_name, round_num, phrase_list, seed, start_time)
+    
