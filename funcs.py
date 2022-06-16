@@ -47,3 +47,30 @@ def ready_up(player_name):
         
         else:
             print(f'Invalid input. Try again.\n{dash}')
+
+def type_on(player_name, round_num, match_phrase, player_input, start_time):
+    word_count = len(match_phrase.split(' '))
+    score_list = []
+    prev_round = 1 - round_num
+
+    if player_input == match_phrase:
+        end_time = time.perf_counter()
+        delta_time = end_time - start_time
+        wpm = word_count/(delta_time/60)
+        score_list.append(wpm)
+        print(f"{dash}\nCorrect!\nYour time: {(round(delta_time,3))} seconds")
+        print(f"Words per minute: {round(wpm,3)}")
+        print(dash)
+
+        if round_num > 1:
+            pass
+            # print(f"Previous WPM: {score_list[prev_round]}")
+        typing = False
+    
+    elif player_input.lower() == 'quit':
+        print("Quitting application. Goodbye.")
+        sys.exit()
+
+    else:
+        print("Incorrect input. Try again!")
+        return player_name, (round_num - 1), match_phrase, player_input, start_time, player_input
