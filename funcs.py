@@ -49,7 +49,6 @@ def ready_up(player_name):
 def type_on(player_name, round_num, phrase_list, seed):
 
     seed += 1
-    print(f"{double}\nROUND {round_num}\n{double}")
 
     start_time = time.perf_counter()
     player_input = input(f"{random_phrase(seed, phrase_list)}\n{dash}\n")
@@ -67,8 +66,6 @@ def type_on(player_name, round_num, phrase_list, seed):
 
         print(f"{dash}\nCorrect!\nYour time: {(round(delta_time,3))} seconds\nWords per minute: {round(wpm,3)}\n{dash}")
 
-        round_num += 1
-
         if round_num > 1:
             pass
             # print(f"Previous WPM: {score_list[prev_round]}")
@@ -79,5 +76,5 @@ def type_on(player_name, round_num, phrase_list, seed):
         sys.exit()
 
     else:
-        print("Incorrect input. Try again!")
+        print(f"{dash}\nIncorrect input. Try again!\n{dash}")
         type_on(player_name, round_num, phrase_list, seed=seed-1)
