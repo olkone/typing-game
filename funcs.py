@@ -1,8 +1,13 @@
-import bs4, lxml, random, requests, sys, time
+import random
+import sys
+import time
+import bs4
+import lxml
+import requests
 from numpy import average
 
-dash = "-"*70
-double = "="*70
+DASH = "-"*70
+DOUBLE = "="*70
 
 def add_phrases():
     '''
@@ -24,7 +29,7 @@ def add_phrases():
             phrase_list.append(quote.text)
 
     return phrase_list
-        
+
 def random_phrase(seed, phrase_list):
     '''
     Create a random seed;
@@ -40,17 +45,17 @@ def ready_up(player_name, score_list):
     ready = ''
 
     while ready != 'yes' or ready != 'no':
-        ready = input(f'{dash}\n{player_name}, are you ready to play? Yes or No: ').lower()
+        ready = input(f'{DASH}\n{player_name}, are you ready to play? Yes or No: ').lower()
 
-        if ready == 'no' or ready == 'n':
-            print(f"Thank you for playing. Goodbye.\n{double}")
+        if ready in ['no', 'n']:
+            print(f"Thank you for playing. Goodbye.\n{DOUBLE}")
             sys.exit()
-        
-        elif ready == 'yes' or ready == 'y':
+
+        elif ready in ['yes', 'y']:
             return score_list, True
-        
+
         else:
-            print(f'Invalid input. Try again.\n{dash}')
+            print(f'Invalid input. Try again.\n{DASH}')
 
 def type_on(round_num, phrase_list, score_list, seed, start_time):
     '''
@@ -60,7 +65,7 @@ def type_on(round_num, phrase_list, score_list, seed, start_time):
     '''
     seed += 1
 
-    player_input = input(f"{random_phrase(seed, phrase_list)}\n{dash}\n")
+    player_input = input(f"{random_phrase(seed, phrase_list)}\n{DASH}\n")
     match_phrase = random_phrase(seed, phrase_list)
     word_count = len(match_phrase.split(' '))
 
@@ -69,16 +74,19 @@ def type_on(round_num, phrase_list, score_list, seed, start_time):
         wpm = word_count/(delta/60)
         score_list.append(round(wpm,3))
 
-        print(f"{dash}\nCorrect!\nYour time: {(round(delta,3))} seconds\nWords per minute: {round(wpm,3)}")
+        print(f"{DASH}\nCorrect!\nYour time: {(round(delta,3))} seconds\
+        \nWords per minute: {round(wpm,3)}")
 
         if round_num > 1:
-            print(f"\nPrevious WPM: {score_list[round_num-2]}\nAverage WPM: {round(average(score_list),3)}")
+            print(f"\nPrevious WPM: {score_list[round_num-2]}\
+            \nAverage WPM: {round(average(score_list),3)}")
 
     elif player_input.lower() == 'quit':
         print("Quitting application. Goodbye.")
         sys.exit()
 
     else:
-        print(f"{dash}\nIncorrect input. Try again!\n{dash}")
-        # seed-1 reverts to previous seed, so the player is given the same phrase to try typing again.
+        print(f"{DASH}\nIncorrect input. Try again!\n{DASH}")
+        # seed-1 reverts to previous seed.
+        # The player is given the same phrase to try typing again.
         type_on(round_num, phrase_list, score_list, seed-1, start_time)
