@@ -15,12 +15,13 @@ print("Generating phrases...")
 phrase_list = add_phrases()
 
 round_num = 0
+score_list = []
 
-while ready_up(player_name):
+while ready_up(player_name, score_list):
     seed = random.randint(1, (2**99))
     round_num += 1
+
     start_time = time.perf_counter()
     print(f"{double}\nROUND {round_num}\n{double}")
 
-    type_on(player_name, round_num, phrase_list, seed, start_time)
-    
+    type_on(round_num, phrase_list, score_list, seed, start_time)
