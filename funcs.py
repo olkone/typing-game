@@ -32,6 +32,8 @@ def add_phrases():
             if len(quote.text.split()) < 31:
                 phrase_list.append(quote.text)
 
+   # Replace ’ and ′ with ' using ASCII values
+    phrase_list = [punc.replace(chr(8217), chr(39)).replace(chr(8242), chr(39)) for punc in phrase_list]
     return phrase_list
 
 def random_phrase(seed, phrase_list):
