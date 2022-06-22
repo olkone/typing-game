@@ -5,6 +5,7 @@ import bs4
 import lxml
 import requests
 from numpy import average
+from termcolor import colored
 
 DASH = "-"*70
 DOUBLE = "="*70
@@ -73,20 +74,21 @@ def type_on(round_num, phrase_list, score_list, seed, start_time):
         delta = time.perf_counter() - start_time
         wpm = word_count/(delta/60)
         score_list.append(round(wpm,3))
-
-        print(f"{DASH}\nCorrect!\nYour time: {(round(delta,3))} seconds\
-        \nWords per minute: {round(wpm,3)}")
+        print(colored(f"{DASH}\nCorrect!\n{DASH}",'green'))
+        print(colored(f"Your time: {(round(delta,3))} seconds", 'cyan'))
+        print(colored(f"Words per minute: {round(wpm,3)}", 'cyan'))
 
         if round_num > 1:
-            print(f"\nPrevious WPM: {score_list[round_num-2]}\
-            \nAverage WPM: {round(average(score_list),3)}")
+            print(colored(f"\nPrevious WPM: {score_list[round_num-2]}",'cyan'))
+            print(colored(f"Maximum WPM: {max(score_list)}",'cyan'))
+            print(colored(f"Average WPM: {round(average(score_list),3)}",'cyan'))
 
     elif player_input.lower() == 'quit':
         print("Quitting application. Goodbye.")
         sys.exit()
 
     else:
-        print(f"{DASH}\nIncorrect input. Try again!\n{DASH}")
+        print(colored((f"{DASH}\nIncorrect input. Try again!\n{DASH}"), 'red'))
         # seed-1 reverts to previous seed.
         # The player is given the same phrase to try typing again.
         type_on(round_num, phrase_list, score_list, seed-1, start_time)
