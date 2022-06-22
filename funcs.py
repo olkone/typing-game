@@ -26,8 +26,11 @@ def add_phrases():
         # Gather all elements with the 'text' attribute
         soup = bs4.BeautifulSoup(result.text, "lxml")
 
+        # Loop through all text attributes
+        # Append phrase_list with quotes < 30 words long
         for quote in soup.find_all(attrs=('text')):
-            phrase_list.append(quote.text)
+            if len(quote.text.split()) < 31:
+                phrase_list.append(quote.text)
 
     return phrase_list
 
