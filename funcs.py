@@ -4,6 +4,7 @@ import time
 import bs4
 import lxml
 import requests
+import plotext as plt
 from numpy import average
 from termcolor import colored
 
@@ -33,7 +34,7 @@ def add_phrases():
                 phrase_list.append(quote.text)
 
    # Replace ’ and ′ with ' using ASCII values
-    phrase_list = [punc.replace(chr(8217), chr(39)).replace(chr(8242), chr(39)) for punc in phrase_list]
+    phrase_list = [punc.replace(chr(8217), "'").replace(chr(8242),"'") for punc in phrase_list]
     return phrase_list
 
 def random_phrase(seed, phrase_list):
@@ -54,6 +55,8 @@ def ready_up(player_name, score_list):
         ready = input(f'{DASH}\n{player_name}, are you ready to play? Yes or No: ').lower()
 
         if ready in ['no', 'n']:
+            print(f"{DASH}\nCalculating your results...")
+            plot_results(score_list, player_name)
             print(f"Thank you for playing. Goodbye.\n{DOUBLE}")
             sys.exit()
 
@@ -97,3 +100,11 @@ def type_on(round_num, phrase_list, score_list, seed, start_time):
         # seed-1 reverts to previous seed.
         # The player is given the same phrase to try typing again.
         type_on(round_num, phrase_list, score_list, seed-1, start_time)
+
+def plot_results(score_list, player_name):
+    plt.plot(score_list)
+    plt.title(f"{player_name}'s Typing Performance")
+    plt.xlabel("Round")
+    plt.ylabel("Words per Minute")
+    plt.xticks(range(len(score_list)+1))
+    plt.show()
