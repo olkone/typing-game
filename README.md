@@ -23,3 +23,18 @@ This game is my first fully independent coding project--no tutorials whatsoever!
 ## Technologies and Libraries
 * Python 3.10.0
 * bs4, lxml, numpy, random, requests, sys, time
+
+# 
+## Check out some of my other projects!
+* JavaScript Calculator
+   * [Live Page](https://olkone.github.io/calculator/)
+   * [Repository](https://github.com/olkone/calculator)
+* Rock, Paper, Scissors
+    * [Live Page](https://olkone.github.io/rock-paper-scissors/)
+    * [Repository](https://github.com/olkone/rock-paper-scissors/)
+* Sketch!
+    * [Live Page](https://olkone.github.io/sketch/)
+    * [Repository](https://github.com/olkone/sketch/)
+* Writing Portfolio Webpage
+    * [Live Page](https://olkone.github.io/writing-portfolio/)
+    * [Repository](https://github.com/olkone/writing-portfolio)
