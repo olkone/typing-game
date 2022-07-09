@@ -44,6 +44,7 @@ The goal of the game is to quickly and accurately type the randomly generated ph
 
 ## Technologies and Libraries
 * Python 3.10.0
+
 * bs4, lxml, numpy, random, requests, sys, time, plotext
 <br><br>
 
