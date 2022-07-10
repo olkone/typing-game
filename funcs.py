@@ -18,6 +18,7 @@ def add_phrases():
     '''
     phrase_list = []
     url = "http://quotes.toscrape.com/page/{}/"
+    exclude = ["lady", "woman", "girl", "Christian", "God", "Christianity"]
 
     # There are 10 pages of quotes to loop through
     for page in range(1,11):
@@ -30,7 +31,7 @@ def add_phrases():
         # Loop through all text attributes
         # Append phrase_list with quotes < 30 words long
         for quote in soup.find_all(attrs=('text')):
-            if len(quote.text.split()) < 31:
+            if len(quote.text.split()) < 41 and not any(i in exclude for i in quote):
                 phrase_list.append(quote.text)
 
    # Replace ’ and ′ with ' using ASCII values
