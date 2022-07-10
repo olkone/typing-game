@@ -1,10 +1,13 @@
 import random
+import os
 import time
 from termcolor import colored
 from funcs import add_phrases, ready_up, type_on
 
-DASH = "-"*70
-DOUBLE = "="*70
+terminal_width = os.get_terminal_size()[0]
+
+DASH = "-" * terminal_width
+DOUBLE = "=" * terminal_width
 
 print(colored(f"{DASH}\nHow fast can you type?\n\
 A randomly generated quote will appear.\n\

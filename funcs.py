@@ -4,12 +4,15 @@ import time
 import bs4
 import lxml
 import requests
+import os
 import plotext as plt
 from numpy import average
 from termcolor import colored
 
-DASH = "-"*70
-DOUBLE = "="*70
+terminal_width = os.get_terminal_size()[0]
+
+DASH = "-" * terminal_width
+DOUBLE = "=" * terminal_width
 
 def add_phrases():
     '''
